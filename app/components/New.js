@@ -1,5 +1,5 @@
 import React from 'react'
-import Contacts from './Contacts';
+import Contacts from './Contacts'
 import Article from './Article'
 
 export default class New extends React.Component {
@@ -16,7 +16,7 @@ export default class New extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+    fetch('https://hacker-news.firebaseio.com/v0/newstories.json')
       .then(res => res.json())
       .then((data) => {
         this.setState({ ids: data })
@@ -35,18 +35,6 @@ export default class New extends React.Component {
         return data
       })
       .catch(console.log)
-
-  }
-
-  getNews(id) {
-    fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-      .then(res => res.json())
-      .then((data) => {
-        this.setState({ info: data })
-        console.log("data: ", data)
-        return data
-      })
-      .catch(console.log("error"))
   }
 
   render() {
@@ -60,7 +48,6 @@ export default class New extends React.Component {
           {ids.map((id) => (
             <div key={id}>
               <span>{id}</span>
-              <button onClick={() => this.getNews(id)}>show news</button>
               <Article articleId={id} />
             </div>
           ))}
