@@ -19,15 +19,12 @@ export default class Article extends React.Component {
           author: data.by,
           title: data.title
         })
-        console.log("data: ", data)
         return data
       })
       .catch(console.log("error"))
   }
 
   render() {
-    console.log("props: ", this.props)
-    console.log("state: ", this.state)
     return (
       <div>
         <span>{this.state.articleId}</span>

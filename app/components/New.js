@@ -1,5 +1,4 @@
 import React from 'react'
-// import { getLatestNewsIds, getNews } from '../utils/api'
 import Contacts from './Contacts';
 import Article from './Article'
 
@@ -14,8 +13,6 @@ export default class New extends React.Component {
 
     this.gatherNewsIds = this.gatherNewsIds.bind(this)
     this.getNews = this.getNews.bind(this)
-    // this.gatherNewsIds = this.gatherNewsIds.bind(this)
-    // this.showNews = this.showNews.bind(this)
   }
 
   componentDidMount() {
