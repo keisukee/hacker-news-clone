@@ -1,5 +1,20 @@
 import React from 'react'
 
+function createMarkup(state) {
+  return {__html: state};
+}
+String.prototype.padLeft = function (length, character) {
+  return new Array(length - this.length + 1).join(character || ' ') + this; 
+}
+
+Date.prototype.toFormattedString = function () {
+  return [String(this.getMonth()+1).padLeft(2, '0'),
+          String(this.getDate()).padLeft(2, '0'),
+          String(this.getFullYear()).substr(2, 2)].join("/") + " " +
+          [String(this.getHours()).padLeft(2, '0'),
+          String(this.getMinutes()).padLeft(2, '0')].join(":")
+}
+
 export default class Comment extends React.Component {
   constructor(props) {
     super(props)
@@ -16,10 +31,9 @@ export default class Comment extends React.Component {
       .then(res => res.json())
       .then((data) => {
         this.setState({
-          by: null,
-          id: null,
-          text: null,
-          type: null
+          by: data.by,
+          id: data.id,
+          text: data.text
         })
         return data
       })
@@ -31,12 +45,9 @@ export default class Comment extends React.Component {
   render() {
     return (
       <div>
-        <div dangerouslySetInnerHTML={createMarkup(this.state.about)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.created)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.author)} />
+        <div dangerouslySetInnerHTML={createMarkup(this.state.by)} />
         <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.karma)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.submitted)} />
+        <div dangerouslySetInnerHTML={createMarkup(this.state.text)} />
       </div>
     )
   }

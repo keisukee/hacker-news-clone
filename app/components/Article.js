@@ -1,5 +1,6 @@
 import React from 'react'
 import User from './User'
+import queryString from 'query-string'
 import { Link } from 'react-router-dom'
 
 export default class Article extends React.Component {
@@ -47,11 +48,21 @@ export default class Article extends React.Component {
       <div>
         {this.isLoading() && <p>LOADING</p>}
         {!this.isLoading() && <User userId={this.state.author} />}
-        <span>{this.state.articleId}</span>
+        <span>articleId: {this.props.articleId}</span>
         <h2 className="title">{this.state.title}</h2>
         <p className="author">by {this.state.author}</p>
-        {this.state.comments.length !==  0 && <p className="comments">comments {this.state.comments.length}</p>}
-        <p><Link to='/post' className='nav-link'>comment</Link></p>
+        {this.state.comments.length !==  0 &&
+          <p>
+            <Link
+              className='nav-link'
+              to={{
+                pathname: '/post',
+                search: `?id=${this.props.articleId}`
+              }}>
+              comment {this.state.comments.length}
+            </Link>
+          </p>
+        }
       </div>
     )
   }
