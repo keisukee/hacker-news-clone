@@ -1,5 +1,6 @@
 import React from 'react'
 import User from './User'
+import { Link } from 'react-router-dom'
 
 export default class Article extends React.Component {
   constructor(props) {
@@ -50,6 +51,7 @@ export default class Article extends React.Component {
         <h2 className="title">{this.state.title}</h2>
         <p className="author">by {this.state.author}</p>
         {this.state.comments.length !==  0 && <p className="comments">comments {this.state.comments.length}</p>}
+        <p><Link to='/post' className='nav-link'>comment</Link></p>
       </div>
     )
   }

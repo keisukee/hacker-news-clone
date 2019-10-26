@@ -4,6 +4,8 @@ import './index.css'
 import Nav from './components/Nav'
 import New from './components/New'
 import Top from './components/Top'
+import Post from './components/Post'
+
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class App extends React.Component {
@@ -13,9 +15,9 @@ class App extends React.Component {
         <div>
           Hello World!
           <Nav />
-
           <Route exact path='/' component={Top}></Route>
           <Route path='/new' component={New}></Route>
+          <Route path='/post' component={Post}></Route>
         </div>
 
       </Router>
