@@ -15,7 +15,7 @@ Date.prototype.toFormattedString = function () {
           String(this.getMinutes()).padLeft(2, '0')].join(":")
 }
 
-export default class User extends React.Component {
+export default class PostInfo extends React.Component {
   constructor(props) {
     super(props)
 
@@ -25,7 +25,7 @@ export default class User extends React.Component {
       delay: null,
       id: null,
       karma: null,
-      submitted: []
+      submitted: null
     }
 
   }
@@ -41,7 +41,6 @@ export default class User extends React.Component {
           karma: data.karma,
           submitted: data.submitted
         })
-        console.log(this.state.submitted)
         return data
       })
       .catch(() => {

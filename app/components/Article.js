@@ -2,6 +2,7 @@ import React from 'react'
 import User from './User'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
+import PostInfo from './PostInfo'
 
 export default class Article extends React.Component {
   constructor(props) {
@@ -47,14 +48,24 @@ export default class Article extends React.Component {
     return (
       <div>
         {this.isLoading() && <p>LOADING</p>}
-        {!this.isLoading() && <User userId={this.state.author} />}
+        {!this.isLoading() && <PostInfo userId={this.state.author} />}
         <span>articleId: {this.props.articleId}</span>
         <h2 className="title">{this.state.title}</h2>
         <p className="author">by {this.state.author}</p>
+        {this.state.author &&
+          <p>
+            <Link
+              to={{
+                pathname: '/user',
+                search: `?id=${this.state.author}`
+              }}>
+              {this.state.author}
+            </Link>
+          </p>
+        }
         {this.state.comments.length !==  0 &&
           <p>
             <Link
-              className='nav-link'
               to={{
                 pathname: '/post',
                 search: `?id=${this.props.articleId}`
