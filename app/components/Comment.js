@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function createMarkup(state) {
   return {__html: state};
@@ -20,7 +21,7 @@ export default class Comment extends React.Component {
     super(props)
 
     this.state = {
-      by: null,
+      author: null,
       id: null,
       text: null,
       type: null
@@ -31,7 +32,7 @@ export default class Comment extends React.Component {
       .then(res => res.json())
       .then((data) => {
         this.setState({
-          by: data.by,
+          author: data.by,
           id: data.id,
           text: data.text
         })
@@ -45,7 +46,13 @@ export default class Comment extends React.Component {
   render() {
     return (
       <div>
-        <div dangerouslySetInnerHTML={createMarkup(this.state.by)} />
+        <Link
+          to={{
+            pathname: '/user',
+            search: `?id=${this.state.author}`
+          }}>
+          <div dangerouslySetInnerHTML={createMarkup(this.state.author)} />
+        </Link>
         <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
         <div dangerouslySetInnerHTML={createMarkup(this.state.text)} />
       </div>
