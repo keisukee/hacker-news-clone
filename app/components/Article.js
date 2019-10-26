@@ -12,6 +12,7 @@ export default class Article extends React.Component {
       contacts: [],
       author: null,
       title: null,
+      url: null,
       comments: [],
       error: null
     }
@@ -25,6 +26,7 @@ export default class Article extends React.Component {
         this.setState({
           author: data.by,
           title: data.title,
+          url: data.url,
           comments: data.kids || [],
           error: null
         })
@@ -50,8 +52,12 @@ export default class Article extends React.Component {
         {this.isLoading() && <p>LOADING</p>}
         {!this.isLoading() && <PostInfo userId={this.state.author} />}
         <span>articleId: {this.props.articleId}</span>
-        <h2 className="title">{this.state.title}</h2>
-        <p className="author">by {this.state.author}</p>
+        {this.state.title &&
+          <h2 className="title">
+            <a href={this.state.url} target="_blank">{this.state.title}</a>
+          </h2>
+        }
+        {this.state.author && <p className="author">by {this.state.author}</p>}
         {this.state.author &&
           <p>
             <Link

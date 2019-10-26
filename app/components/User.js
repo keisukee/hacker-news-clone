@@ -1,4 +1,5 @@
 import React from 'react'
+import Article from './Article'
 
 function createMarkup(state) {
   return {__html: state};
@@ -57,7 +58,13 @@ export default class User extends React.Component {
         <div dangerouslySetInnerHTML={createMarkup(this.state.author)} />
         <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
         <div dangerouslySetInnerHTML={createMarkup(this.state.karma)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.submitted)} />
+        {this.state.submitted.length !== 0 && this.state.submitted.map((articleId) => (
+          <div key={articleId}>
+            <span>{articleId}</span>
+            <Article articleId={articleId} />
+          </div>
+        ))}
+        <Article />
       </div>
     )
   }
