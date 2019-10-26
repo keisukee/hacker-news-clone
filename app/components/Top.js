@@ -7,27 +7,45 @@ export default class Top extends React.Component {
 
     this.state = {
       ids: [],
-      info: null
+      info: null,
+      error: null
     }
+
+    this.isLoading = this.isLoading.bind(this)
   }
 
   componentDidMount() {
     fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
       .then(res => res.json())
       .then((data) => {
-        this.setState({ ids: data })
-        console.log("aaa: ", data)
+        this.setState({
+          ids: data,
+          error: null
+        })
+        console.log("ids: ", this.state.ids)
         return data
       })
-      .catch(console.log)
+      .catch(() => {
+        console.warn('Error fetching article: ', error)
+
+        this.setState({
+          error: `There was an error fetching the repositories.`
+        })
+      })
   }
+
+  isLoading() {
+    return this.state.error === null && this.state.ids.length === 0
+  }
+
   render() {
     const { ids } = this.state
     return (
       <div>
         top
         <div>
-          {ids.map((id) => (
+          {this.isLoading() && <p>LOADING</p>}
+          {!this.isLoading() && ids.map((id) => (
             <div key={id}>
               <span>{id}</span>
               <Article articleId={id} />
