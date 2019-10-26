@@ -9,6 +9,7 @@ export default class Article extends React.Component {
       contacts: [],
       author: null,
       title: null,
+      comments: [],
       error: null
     }
 
@@ -21,6 +22,7 @@ export default class Article extends React.Component {
         this.setState({
           author: data.by,
           title: data.title,
+          comments: data.kids || [],
           error: null
         })
         return data
@@ -39,7 +41,7 @@ export default class Article extends React.Component {
   }
 
   render() {
-    // console.log("article: ", this.state.author)
+    console.log("article: ", this.state.comments)
     return (
       <div>
         {this.isLoading() && <p>LOADING</p>}
@@ -47,6 +49,7 @@ export default class Article extends React.Component {
         <span>{this.state.articleId}</span>
         <h2 className="title">{this.state.title}</h2>
         <p className="author">by {this.state.author}</p>
+        {this.state.comments.length !==  0 && <p className="comments">comments {this.state.comments.length}</p>}
       </div>
     )
   }

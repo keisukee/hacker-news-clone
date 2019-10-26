@@ -19,7 +19,7 @@ export default class Top extends React.Component {
       .then(res => res.json())
       .then((data) => {
         this.setState({
-          ids: data,
+          ids: data.slice(0, 30),
           error: null
         })
         console.log("ids: ", this.state.ids)

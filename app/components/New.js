@@ -20,7 +20,7 @@ export default class New extends React.Component {
       .then((data) => {
         console.log(data.slice(0, 10))
         this.setState({
-          ids: data.slice(0, 10),
+          ids: data.slice(0, 30),
           error: null
         })
         return data
