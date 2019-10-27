@@ -25,7 +25,8 @@ export default class Comment extends React.Component {
       id: null,
       created: null,
       text: null,
-      type: null
+      type: null,
+      error: null
     }
   }
   componentDidMount() {
@@ -36,14 +37,17 @@ export default class Comment extends React.Component {
           author: data.by,
           id: data.id,
           created: new Date(data.time * 1000).toFormattedString(),
-          text: data.text
+          text: data.text,
+          error: null
         })
-        console.log("comment:", data)
         return data
       })
       .catch(() => {
-        console.warn('Error fetching articles')
-      })
+        this.setState({
+          error: `There was an error fetching the Comment.`
+        })
+        console.warn('Error fetching Comment: ', error)
+    })
   }
 
   render() {

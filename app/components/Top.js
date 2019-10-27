@@ -41,7 +41,6 @@ export default class Top extends React.Component {
     const { ids } = this.state
     return (
       <div>
-        top
         <div>
           {this.isLoading() && <p>LOADING</p>}
           {!this.isLoading() && ids.map((id) => (

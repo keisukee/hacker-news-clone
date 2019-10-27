@@ -1,5 +1,6 @@
 import React from 'react'
 import Article from './Article'
+import queryString from 'query-string'
 
 function createMarkup(state) {
   return {__html: state};
@@ -26,12 +27,15 @@ export default class User extends React.Component {
       delay: null,
       id: null,
       karma: null,
-      submitted: []
+      author: null,
+      submitted: [],
+      error: null
     }
 
   }
   componentDidMount() {
-    fetch(`https://hacker-news.firebaseio.com/v0/user/${this.props.userId}.json`)
+    const userId = queryString.parse(this.props.location.search).id
+    fetch(`https://hacker-news.firebaseio.com/v0/user/${userId}.json`)
       .then(res => res.json())
       .then((data) => {
         this.setState({
@@ -40,31 +44,49 @@ export default class User extends React.Component {
           delay: data.delay,
           id: data.id,
           karma: data.karma,
-          submitted: data.submitted
+          author: userId,
+          submitted: data.submitted,
+          error: null
         })
-        console.log(this.state.submitted)
         return data
       })
       .catch(() => {
-        console.warn('Error fetching articles')
-      })
+        this.setState({
+          error: `There was an error fetching the User.`
+        })
+        console.warn('Error fetching User: ', error)
+    })
   }
 
   render() {
     return (
       <div>
+        <h2 dangerouslySetInnerHTML={createMarkup(this.state.author)} />
+        <ul className="flex-item">
+          <li className="inline-item space-right">
+            <p className="inline-item">
+              <span className="color-gray space-right">joined</span>
+              <span className="color-gray" dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+            </p>
+          </li>
+          <li className="inline-item space-right">
+            <p className="inline-item">
+              <span className="color-gray space-right">has</span>
+              <span className="color-gray space-right">{this.state.karma}</span>
+              <span className="color-gray space-right">karma</span>
+            </p>
+          </li>
+        </ul>
+
         <div dangerouslySetInnerHTML={createMarkup(this.state.about)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.created)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.author)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.karma)} />
-        {this.state.submitted.length !== 0 && this.state.submitted.map((articleId) => (
-          <div key={articleId}>
-            <span>{articleId}</span>
-            <Article articleId={articleId} />
-          </div>
-        ))}
-        <Article />
+        <div>
+          <h2>Posts</h2>
+          {this.state.submitted.length !== 0 && this.state.submitted.map((articleId) => (
+            <div key={articleId}>
+              <Article articleId={articleId} />
+            </div>
+          ))}
+        </div>
       </div>
     )
   }

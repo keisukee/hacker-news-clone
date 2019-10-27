@@ -27,7 +27,8 @@ export default class PostInfo extends React.Component {
       delay: null,
       id: null,
       karma: null,
-      submitted: null
+      submitted: null,
+      error: null
     }
   }
   componentDidMount() {
@@ -40,20 +41,22 @@ export default class PostInfo extends React.Component {
           delay: data.delay,
           id: data.id,
           karma: data.karma,
-          submitted: data.submitted
+          submitted: data.submitted,
+          error: null
         })
         return data
       })
       .catch(() => {
-        console.warn('Error fetching articles')
-      })
+        this.setState({
+          error: `There was an error fetching the PostInfo.`
+        })
+        console.warn('Error fetching PostInfo: ', error)
+    })
   }
 
   render() {
-    console.log(this.state.id)
     return (
       <div>
-        {/* <div dangerouslySetInnerHTML={createMarkup(this.state.about)} /> */}
         <ul className="flex-item">
           <li className="inline-item">
             {this.props.userId &&
@@ -94,9 +97,6 @@ export default class PostInfo extends React.Component {
 
           </li>
         </ul>
-        {/* <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.karma)} /> */}
-
       </div>
     )
   }
