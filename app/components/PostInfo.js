@@ -1,4 +1,6 @@
 import React from 'react'
+import queryString from 'query-string'
+import { Link } from 'react-router-dom'
 
 function createMarkup(state) {
   return {__html: state};
@@ -27,7 +29,6 @@ export default class PostInfo extends React.Component {
       karma: null,
       submitted: null
     }
-
   }
   componentDidMount() {
     fetch(`https://hacker-news.firebaseio.com/v0/user/${this.props.userId}.json`)
@@ -49,13 +50,51 @@ export default class PostInfo extends React.Component {
   }
 
   render() {
+    console.log(this.props.author)
     return (
       <div>
-        <div dangerouslySetInnerHTML={createMarkup(this.state.about)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.created)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.author)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.karma)} />
+        {/* <div dangerouslySetInnerHTML={createMarkup(this.state.about)} /> */}
+        <ul clssName="flex-item">
+          <li className="inline-item">
+            {this.props.userId &&
+              <p className="author inline-item">
+                <span className="space-right">by</span>
+                <Link
+                  to={{
+                    pathname: '/user',
+                    search: `?id=${this.props.userId}`
+                  }}>
+                  <span className="author-name">
+                    {this.props.userId}
+                  </span>
+                </Link>
+              </p>
+            }
+          </li>
+          <li className="inline-item">
+            <span className="space-right">on</span>
+            <span dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+          </li>
+          <li className="inline-item">
+            {this.props.comments.length !== 0 &&
+              <p className="inline-item">
+                <span className="space-right">with</span>
+                <Link
+                  to={{
+                    pathname: '/post',
+                    search: `?id=${this.props.articleId}`
+                  }}>
+                    <span className="space-right link-black underline">{this.props.comments.length}</span>
+                </Link>
+                <span>comments</span>
+              </p>
+            }
+
+          </li>
+        </ul>
+        {/* <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
+        <div dangerouslySetInnerHTML={createMarkup(this.state.karma)} /> */}
+
       </div>
     )
   }

@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
+import './index.sass'
 import Nav from './components/Nav'
 import New from './components/New'
 import Top from './components/Top'

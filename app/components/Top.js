@@ -46,7 +46,6 @@ export default class Top extends React.Component {
           {this.isLoading() && <p>LOADING</p>}
           {!this.isLoading() && ids.map((id) => (
             <div key={id}>
-              <span>{id}</span>
               <Article articleId={id} />
             </div>
           ))}

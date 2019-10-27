@@ -46,28 +46,32 @@ export default class Article extends React.Component {
   }
 
   render() {
-    console.log("article: ", this.state.comments)
     return (
       <div>
         {this.isLoading() && <p>LOADING</p>}
-        {!this.isLoading() && <PostInfo userId={this.state.author} />}
         {this.state.title &&
           <h2 className="title">
             <a href={this.state.url} target="_blank">{this.state.title}</a>
           </h2>
         }
-        {this.state.author &&
-          <p>
-            <Link
-              to={{
-                pathname: '/user',
-                search: `?id=${this.state.author}`
-              }}>
-              {this.state.author}
-            </Link>
-          </p>
-        }
-        {this.state.comments.length !== 0 &&
+        {/* {this.state.author &&
+          <div className="author">
+            <p>
+              <span className="space-right">by</span>
+              <Link
+                to={{
+                  pathname: '/user',
+                  search: `?id=${this.state.author}`
+                }}>
+                <span className="author-name">
+                  {this.state.author}
+                </span>
+              </Link>
+            </p>
+          </div>
+        } */}
+        {!this.isLoading() && <PostInfo userId={this.state.author} comments={this.state.comments} />}
+        {/* {this.state.comments.length !== 0 &&
           <p>
             <Link
               to={{
@@ -77,7 +81,7 @@ export default class Article extends React.Component {
               comment {this.state.comments.length}
             </Link>
           </p>
-        }
+        } */}
       </div>
     )
   }
