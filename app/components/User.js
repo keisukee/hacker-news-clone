@@ -34,6 +34,7 @@ export default class User extends React.Component {
 
   }
   componentDidMount() {
+    console.log("search", this.props.location.search.id)
     const userId = queryString.parse(this.props.location.search).id
     fetch(`https://hacker-news.firebaseio.com/v0/user/${userId}.json`)
       .then(res => res.json())

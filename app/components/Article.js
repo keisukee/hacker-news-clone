@@ -10,10 +10,12 @@ export default class Article extends React.Component {
 
     this.state = {
       contacts: [],
+      isDeleted: false,
       author: null,
       title: null,
       url: null,
       comments: [],
+      type: null,
       error: null
     }
 
@@ -23,21 +25,24 @@ export default class Article extends React.Component {
     fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props.articleId}.json`)
       .then(res => res.json())
       .then((data) => {
+        console.log("data.deleted", data.deleted || false)
         this.setState({
           author: data.by,
+          isDeleted: data.deleted || false,
           title: data.title,
           url: data.url,
           comments: data.kids || [],
+          type: data.type,
           error: null
         })
         return data
+
       })
       .catch(() => {
-        console.warn('Error fetching article: ', error)
-
         this.setState({
           error: `There was an error fetching the repositories.`
         })
+        console.warn('Error fetching article: ', error)
       })
   }
 
@@ -46,42 +51,20 @@ export default class Article extends React.Component {
   }
 
   render() {
+    console.log("status: ", this.state.isDeleted)
     return (
       <div>
         {this.isLoading() && <p>LOADING</p>}
-        {this.state.title &&
-          <h2 className="title">
-            <a href={this.state.url} target="_blank">{this.state.title}</a>
-          </h2>
-        }
-        {/* {this.state.author &&
-          <div className="author">
-            <p>
-              <span className="space-right">by</span>
-              <Link
-                to={{
-                  pathname: '/user',
-                  search: `?id=${this.state.author}`
-                }}>
-                <span className="author-name">
-                  {this.state.author}
-                </span>
-              </Link>
-            </p>
+        {this.state.isDeleted === false && this.state.type === "story" && !this.isLoading() && <p>LOADING</p> &&
+          <div>
+            {this.state.title &&
+              <h2 className="title">
+                <a href={this.state.url} target="_blank">{this.state.title}</a>
+              </h2>
+            }
+            {<PostInfo userId={this.state.author} comments={this.state.comments} articleId={this.props.articleId} />}
           </div>
-        } */}
-        {!this.isLoading() && <PostInfo userId={this.state.author} comments={this.state.comments} articleId={this.props.articleId} />}
-        {/* {this.state.comments.length !== 0 &&
-          <p>
-            <Link
-              to={{
-                pathname: '/post',
-                search: `?id=${this.props.articleId}`
-              }}>
-              comment {this.state.comments.length}
-            </Link>
-          </p>
-        } */}
+        }
       </div>
     )
   }
