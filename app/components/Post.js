@@ -1,6 +1,7 @@
 import React from 'react'
 import Comment from './Comment'
 import queryString from 'query-string'
+import Article from './Article'
 
 export default class Post extends React.Component {
   constructor(props) {
@@ -37,13 +38,14 @@ export default class Post extends React.Component {
   render() {
     return (
       <div>
-        <span>articleId: {this.props.id}</span>
-        <h2 className="title">{this.state.title}</h2>
-        <p className="author">by {this.state.author}</p>
-        {this.state.commentIds.length != 0 && this.state.commentIds.map((id) => (
-          <Comment key={id} commentId={id} />
-        ))}
-
+        <div key={this.state.id}>
+          <Article articleId={this.state.id} />
+        </div>
+        <div>
+          {this.state.commentIds.length != 0 && this.state.commentIds.map((id) => (
+            <Comment key={id} commentId={id} />
+          ))}
+        </div>
       </div>
     )
   }

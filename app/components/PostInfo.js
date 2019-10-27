@@ -58,7 +58,7 @@ export default class PostInfo extends React.Component {
           <li className="inline-item">
             {this.props.userId &&
               <p className="author inline-item">
-                <span className="space-right">by</span>
+                <span className="color-gray space-right">by</span>
                 <Link
                   to={{
                     pathname: '/user',
@@ -73,22 +73,22 @@ export default class PostInfo extends React.Component {
           </li>
           <li className="inline-item">
             <p className="inline-item">
-              <span className="space-right">on</span>
-              <span dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+              <span className="color-gray space-right">on</span>
+              <span className="color-gray" dangerouslySetInnerHTML={createMarkup(this.state.created)} />
             </p>
           </li>
           <li className="inline-item">
             {this.props.comments.length !== 0 &&
               <p className="inline-item">
-                <span className="space-right">with</span>
+                <span className="color-gray space-right">with</span>
                 <Link
                   to={{
                     pathname: '/post',
                     search: `?id=${this.props.articleId}`
                   }}>
-                    <span className="space-right link-black underline">{this.props.comments.length}</span>
+                    <span className="color-gray space-right link-black underline">{this.props.comments.length}</span>
                 </Link>
-                <span>comments</span>
+                <span className="color-gray">comments</span>
               </p>
             }
 

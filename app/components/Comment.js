@@ -23,6 +23,7 @@ export default class Comment extends React.Component {
     this.state = {
       author: null,
       id: null,
+      created: null,
       text: null,
       type: null
     }
@@ -34,8 +35,10 @@ export default class Comment extends React.Component {
         this.setState({
           author: data.by,
           id: data.id,
+          created: new Date(data.time * 1000).toFormattedString(),
           text: data.text
         })
+        console.log("comment:", data)
         return data
       })
       .catch(() => {
@@ -45,15 +48,32 @@ export default class Comment extends React.Component {
 
   render() {
     return (
-      <div>
-        <Link
-          to={{
-            pathname: '/user',
-            search: `?id=${this.state.author}`
-          }}>
-          <div dangerouslySetInnerHTML={createMarkup(this.state.author)} />
-        </Link>
-        <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
+      <div className="card">
+        <ul className="flex-item">
+          <li className="inline-item">
+            {this.state.author &&
+              <p className="author inline-item">
+                <span className="color-gray space-right">by</span>
+                <Link
+                  to={{
+                    pathname: '/user',
+                    search: `?id=${this.state.author}`
+                  }}>
+                  <span className="author-name">
+                    {this.state.author}
+                  </span>
+                </Link>
+              </p>
+            }
+          </li>
+          <li className="inline-item">
+            <p className="inline-item">
+              <span className="color-gray space-right">on</span>
+              <span className="color-gray" dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+            </p>
+          </li>
+        </ul>
+
         <div dangerouslySetInnerHTML={createMarkup(this.state.text)} />
       </div>
     )
