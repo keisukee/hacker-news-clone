@@ -56,7 +56,6 @@ export default class PostInfo extends React.Component {
         <div dangerouslySetInnerHTML={createMarkup(this.state.author)} />
         <div dangerouslySetInnerHTML={createMarkup(this.state.id)} />
         <div dangerouslySetInnerHTML={createMarkup(this.state.karma)} />
-        <div dangerouslySetInnerHTML={createMarkup(this.state.submitted)} />
       </div>
     )
   }

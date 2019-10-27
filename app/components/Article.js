@@ -51,13 +51,11 @@ export default class Article extends React.Component {
       <div>
         {this.isLoading() && <p>LOADING</p>}
         {!this.isLoading() && <PostInfo userId={this.state.author} />}
-        <span>articleId: {this.props.articleId}</span>
         {this.state.title &&
           <h2 className="title">
             <a href={this.state.url} target="_blank">{this.state.title}</a>
           </h2>
         }
-        {this.state.author && <p className="author">by {this.state.author}</p>}
         {this.state.author &&
           <p>
             <Link
@@ -69,7 +67,7 @@ export default class Article extends React.Component {
             </Link>
           </p>
         }
-        {this.state.comments.length !==  0 &&
+        {this.state.comments.length !== 0 &&
           <p>
             <Link
               to={{

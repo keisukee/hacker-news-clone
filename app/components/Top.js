@@ -22,7 +22,6 @@ export default class Top extends React.Component {
           ids: data.slice(0, 30),
           error: null
         })
-        console.log("ids: ", this.state.ids)
         return data
       })
       .catch(() => {

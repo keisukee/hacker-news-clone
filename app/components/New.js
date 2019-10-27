@@ -42,7 +42,6 @@ export default class New extends React.Component {
     const { ids, info } = this.state
     return (
       <div>
-        new
         <div>
           {this.isLoading() && <p>LOADING</p>}
           {!this.isLoading() && ids.map((id) => (

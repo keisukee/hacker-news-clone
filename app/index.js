@@ -14,14 +14,12 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          Hello World!
           <Nav />
           <Route exact path='/' component={Top}></Route>
           <Route path='/new' component={New}></Route>
           <Route path='/post' component={Post}></Route>
           <Route path='/user' component={User}></Route>
         </div>
-
       </Router>
     )
   }

@@ -5,7 +5,7 @@ export default class Nav extends React.Component {
   render() {
     return (
       <div>
-        <ul>
+        <ul className='nav-container'>
           <li>
             <Link to='/' className='nav-link'>Top</Link>
           </li>
