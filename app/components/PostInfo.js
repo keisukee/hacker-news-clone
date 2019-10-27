@@ -50,11 +50,11 @@ export default class PostInfo extends React.Component {
   }
 
   render() {
-    console.log(this.props.author)
+    console.log(this.state.id)
     return (
       <div>
         {/* <div dangerouslySetInnerHTML={createMarkup(this.state.about)} /> */}
-        <ul clssName="flex-item">
+        <ul className="flex-item">
           <li className="inline-item">
             {this.props.userId &&
               <p className="author inline-item">
@@ -72,8 +72,10 @@ export default class PostInfo extends React.Component {
             }
           </li>
           <li className="inline-item">
-            <span className="space-right">on</span>
-            <span dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+            <p className="inline-item">
+              <span className="space-right">on</span>
+              <span dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+            </p>
           </li>
           <li className="inline-item">
             {this.props.comments.length !== 0 &&

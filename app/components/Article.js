@@ -70,7 +70,7 @@ export default class Article extends React.Component {
             </p>
           </div>
         } */}
-        {!this.isLoading() && <PostInfo userId={this.state.author} comments={this.state.comments} />}
+        {!this.isLoading() && <PostInfo userId={this.state.author} comments={this.state.comments} articleId={this.props.articleId} />}
         {/* {this.state.comments.length !== 0 &&
           <p>
             <Link
