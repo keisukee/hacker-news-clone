@@ -20,6 +20,7 @@ export default class Nav extends React.Component {
               <button
                 style={{fontSize: 30}}
                 onClick={toggleTheme}
+                className="btn-clear"
               >
                 {theme === 'light' ? '🔦' : '💡'}
               </button>

@@ -29,7 +29,7 @@ class App extends React.Component {
     return (
       <ThemeProvider value={this.state}>
         <Router>
-          <div>
+          <div className={this.state.theme}>
             <Nav />
             <Route exact path='/' component={Top}></Route>
             <Route path='/new' component={New}></Route>
