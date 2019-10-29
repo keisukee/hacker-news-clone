@@ -1,6 +1,7 @@
 import React from 'react'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
+import { ThemeConsumer } from '../contexts/theme'
 
 function createMarkup(state) {
   return {__html: state};
@@ -56,48 +57,52 @@ export default class PostInfo extends React.Component {
 
   render() {
     return (
-      <div>
-        <ul className="flex-item">
-          <li className="inline-item">
-            {this.props.userId &&
-              <p className="author inline-item">
-                <span className="color-gray space-right">by</span>
-                <Link
-                  to={{
-                    pathname: '/user',
-                    search: `?id=${this.props.userId}`
-                  }}>
-                  <span className="author-name">
-                    {this.props.userId}
-                  </span>
-                </Link>
-              </p>
-            }
-          </li>
-          <li className="inline-item">
-            <p className="inline-item">
-              <span className="color-gray space-right">on</span>
-              <span className="color-gray" dangerouslySetInnerHTML={createMarkup(this.state.created)} />
-            </p>
-          </li>
-          <li className="inline-item">
-            {this.props.comments.length !== 0 &&
-              <p className="inline-item">
-                <span className="color-gray space-right">with</span>
-                <Link
-                  to={{
-                    pathname: '/post',
-                    search: `?id=${this.props.articleId}`
-                  }}>
-                    <span className="color-gray space-right link-black underline">{this.props.comments.length}</span>
-                </Link>
-                <span className="color-gray">comments</span>
-              </p>
-            }
+      <ThemeConsumer>
+        {({ theme }) => (
+          <div>
+            <ul className="flex-item">
+              <li className="inline-item">
+                {this.props.userId &&
+                  <p className="author inline-item">
+                    <span className="color-gray space-right">by</span>
+                    <Link
+                      to={{
+                        pathname: '/user',
+                        search: `?id=${this.props.userId}`
+                      }}>
+                      <span className={`author-name author-name-${theme}`}>
+                        {this.props.userId}
+                      </span>
+                    </Link>
+                  </p>
+                }
+              </li>
+              <li className="inline-item">
+                <p className="inline-item">
+                  <span className="color-gray space-right">on</span>
+                  <span className="color-gray" dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+                </p>
+              </li>
+              <li className="inline-item">
+                {this.props.comments.length !== 0 &&
+                  <p className="inline-item">
+                    <span className="color-gray space-right">with</span>
+                    <Link
+                      to={{
+                        pathname: '/post',
+                        search: `?id=${this.props.articleId}`
+                      }}>
+                        <span className={`space-right underline-${theme}`}>{this.props.comments.length}</span>
+                    </Link>
+                    <span className="color-gray">comments</span>
+                  </p>
+                }
 
-          </li>
-        </ul>
-      </div>
+              </li>
+            </ul>
+          </div>
+        )}
+      </ThemeConsumer>
     )
   }
 }

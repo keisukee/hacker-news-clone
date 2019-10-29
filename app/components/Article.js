@@ -3,6 +3,7 @@ import User from './User'
 import queryString from 'query-string'
 import { Link } from 'react-router-dom'
 import PostInfo from './PostInfo'
+import { ThemeConsumer } from '../contexts/theme'
 
 export default class Article extends React.Component {
   constructor(props) {
@@ -51,21 +52,24 @@ export default class Article extends React.Component {
   }
 
   render() {
-    console.log("status: ", this.state.isDeleted)
     return (
-      <div>
-        {this.isLoading() && <p>LOADING</p>}
-        {this.state.isDeleted === false && this.state.type === "story" && !this.isLoading() && <p>LOADING</p> &&
+      <ThemeConsumer>
+        {({ theme }) => (
           <div>
-            {this.state.title &&
-              <h2 className="title">
-                <a href={this.state.url} target="_blank">{this.state.title}</a>
-              </h2>
+            {this.isLoading() && <p>LOADING</p>}
+            {this.state.isDeleted === false && this.state.type === "story" && !this.isLoading() && <p>LOADING</p> &&
+              <div>
+                {this.state.title &&
+                  <h2 className={`title-${theme}`}>
+                    <a href={this.state.url} target="_blank">{this.state.title}</a>
+                  </h2>
+                }
+                {<PostInfo userId={this.state.author} comments={this.state.comments} articleId={this.props.articleId} />}
+              </div>
             }
-            {<PostInfo userId={this.state.author} comments={this.state.comments} articleId={this.props.articleId} />}
           </div>
-        }
-      </div>
+        )}
+      </ThemeConsumer>
     )
   }
 }

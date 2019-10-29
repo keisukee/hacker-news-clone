@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { ThemeConsumer } from '../contexts/theme'
 
 function createMarkup(state) {
   return {__html: state};
@@ -52,34 +53,38 @@ export default class Comment extends React.Component {
 
   render() {
     return (
-      <div className="card">
-        <ul className="flex-item">
-          <li className="inline-item">
-            {this.state.author &&
-              <p className="author inline-item">
-                <span className="color-gray space-right">by</span>
-                <Link
-                  to={{
-                    pathname: '/user',
-                    search: `?id=${this.state.author}`
-                  }}>
-                  <span className="author-name">
-                    {this.state.author}
-                  </span>
-                </Link>
-              </p>
-            }
-          </li>
-          <li className="inline-item">
-            <p className="inline-item">
-              <span className="color-gray space-right">on</span>
-              <span className="color-gray" dangerouslySetInnerHTML={createMarkup(this.state.created)} />
-            </p>
-          </li>
-        </ul>
+      <ThemeConsumer>
+        {({ theme }) => (
+          <div className={`card card-${theme}`}>
+            <ul className="flex-item">
+              <li className="inline-item">
+                {this.state.author &&
+                  <p className="author inline-item">
+                    <span className="color-gray space-right">by</span>
+                    <Link
+                      to={{
+                        pathname: '/user',
+                        search: `?id=${this.state.author}`
+                      }}>
+                      <span className={`author-name author-name-${theme}`}>
+                        {this.state.author}
+                      </span>
+                    </Link>
+                  </p>
+                }
+              </li>
+              <li className="inline-item">
+                <p className="inline-item">
+                  <span className="color-gray space-right">on</span>
+                  <span className="color-gray" dangerouslySetInnerHTML={createMarkup(this.state.created)} />
+                </p>
+              </li>
+            </ul>
 
-        <div dangerouslySetInnerHTML={createMarkup(this.state.text)} />
-      </div>
+            <div dangerouslySetInnerHTML={createMarkup(this.state.text)} />
+          </div>
+        )}
+      </ThemeConsumer>
     )
   }
 }

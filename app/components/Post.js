@@ -41,7 +41,7 @@ export default class Post extends React.Component {
         <div key={this.state.id}>
           <Article articleId={this.state.id} />
         </div>
-        <div>
+        <div className="comments-container">
           {this.state.commentIds.length != 0 && this.state.commentIds.map((id) => (
             <Comment key={id} commentId={id} />
           ))}
