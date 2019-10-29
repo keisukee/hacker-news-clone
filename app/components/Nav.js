@@ -1,6 +1,11 @@
 import React from 'react'
 import { ThemeConsumer } from '../contexts/theme'
 import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+
+const activeStyle = {
+  color: 'rgb(187, 46, 31)'
+}
 
 export default class Nav extends React.Component {
   render() {
@@ -10,15 +15,27 @@ export default class Nav extends React.Component {
           <div>
             <ul className='nav-container'>
               <li>
-                <Link to='/' className='nav-link'>Top</Link>
+                <NavLink
+                  exact
+                  to='/'
+                  activeStyle={activeStyle}
+                  className='nav-link'>
+                    Top
+                </NavLink>
               </li>
               <li>
-                <Link to='/new' className='nav-link'>New</Link>
+                <NavLink
+                  to='/new'
+                  activeStyle={activeStyle}
+                  className='nav-link'>
+                    New
+                </NavLink>
               </li>
             </ul>
             <nav>
               <button
                 style={{fontSize: 30}}
+                activeStyle={activeStyle}
                 onClick={toggleTheme}
                 className="btn-clear"
               >
